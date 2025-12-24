@@ -1,14 +1,7 @@
-# Builder stage
-FROM python:3.10-alpine as builder
+
+FROM python:latest
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install --no-cache-dir --user -r requirements.txt
-
-# Runtime stage
-FROM python:3.10-alpine
-WORKDIR /app
-COPY --from=builder /root/.local /root/.local
-COPY app.py .
-ENV PATH=/root/.local/bin:$PATH
+RUN pip install -r requirements.txt
 EXPOSE 5000
 CMD ["python", "app.py"]
