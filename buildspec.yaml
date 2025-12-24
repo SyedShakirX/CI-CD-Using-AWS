@@ -9,7 +9,6 @@ phases:
   install:
     runtime-versions:  #First step is to install the runtime versions which is python in our case.
       python: 3.11
-      docker: 20
     
   pre_build:
     commands:
@@ -27,8 +26,8 @@ phases:
   post_build:
     commands:
       - docker push public.ecr.aws/n2p7k0f2/code-build-ci:latest
-      - echo "Build and Push Completed Successfully"
-      - echo "This is my docker username: $DOCKER_USERNAME" #Just to check if our parameter-store variables are working
+      # - echo "Build and Push Completed Successfully"
+      # - echo "This is my docker username: $DOCKER_USERNAME" #Just to check if our parameter-store variables are working
     
     
      
