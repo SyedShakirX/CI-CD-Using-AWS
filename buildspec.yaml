@@ -14,10 +14,10 @@ phases:
     commands:
       - echo "Pre-Build Phase Started"
       - pip install -r requirements.txt
-      #Login To DOckerHub
+      #Login To DockerHub If Needed
       #echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
       
-      #Below is the command we got from VIEW PUSH COMMANDS from AWS ECR
+      #Below is the command we got from "VIEW PUSH COMMANDS" on AWS ECR
       - "aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/n2p7k0f2"
       
     
@@ -30,9 +30,6 @@ phases:
     commands:
       - docker push public.ecr.aws/n2p7k0f2/code-build-ci:latest
 
-      #Just To Check If Your Env Vars are Working
-      - |
-        echo "DEBUG: DOCKER_USERNAME='$DOCKER_USERNAME'"
     
     
      
