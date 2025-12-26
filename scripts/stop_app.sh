@@ -1,14 +1,17 @@
 #!/bin/bash
 set -e
 
-RUNNING=$(docker ps -q)
-if [ -n "$RUNNING" ]; then
-  docker stop $RUNNING
-fi
+TARGET_PORT="5000"
 
-ALL=$(docker ps -aq)
-if [ -n "$ALL" ]; then
-  docker rm $ALL
+# Find containers publishing host port 5000
+CONTAINERS=$(docker container ls --format '{{.ID}} {{.Ports}}' \
+  | grep "${TARGET_PORT}->" \
+  | awk '{print $1}')
+
+if [ -n "$CONTAINERS" ]; then
+  echo "Stopping containers on port ${TARGET_PORT}: ${CONTAINERS}"
+  docker stop $CONTAINERS
+  docker rm $CONTAINERS || true
 else
-  echo "No containers to remove."
+  echo "No containers found publishing port ${TARGET_PORT}"
 fi
