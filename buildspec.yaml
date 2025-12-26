@@ -30,7 +30,7 @@ phases:
     commands:
       - docker push public.ecr.aws/n2p7k0f2/aws-ci-cd-python-flask:latest
 
-    
-    
-     
-
+# Added for CodeDeploy artifact creation - fixes S3 access error
+artifacts:
+  files: '**/*'           # Include all files from build directory
+  name: BuildArtif        # Exact name CodePipeline Deploy stage expects
