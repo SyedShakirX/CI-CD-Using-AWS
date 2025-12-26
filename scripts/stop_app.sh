@@ -1,4 +1,5 @@
 #!/bin/bash
 set -e
 
-docker rm -f
+contID='docker ps | awk -F" " '{print $1}''
+docker rm -f $contID
